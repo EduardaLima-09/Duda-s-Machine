@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPTecher's Machine</title>
+
+    <style>
+        /* ================================================
+           BODY - Define o fundo, fonte e centralização
+        ================================================ */
+        body {
+            margin: 0; /* Remove margens padrão */
+            padding: 0; /* Remove padding padrão */
+            font-family: 'Arial', sans-serif; /* Fonte padrão */
+            background: linear-gradient(135deg, #c25b88, #ff5ba8); /* Gradiente rosa */
+            display: flex; /* Centraliza horizontalmente e verticalmente */
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ocupa toda a altura da tela */
+            overflow: hidden; /* Evita scroll devido aos elementos flutuantes */
+        }
+
+        /* ================================================
+           CÍRCULOS FLUTUANTES - elementos decorativos
+        ================================================ */
+        .circle {
+            position: absolute; /* Posicionamento livre na tela */
+            border-radius: 50%; /* Forma circular */
+            background: rgba(255, 182, 193, 0.3); /* Cor rosa transparente */
+            animation: float 10s infinite ease-in-out; /* Animação de flutuar */
+        }
+
+        /* Define tamanho, posição e atraso de cada círculo */
+        .circle:nth-child(1) { width: 120px; height: 120px; top: 10%; left: 5%; animation-delay: 0s; }
+        .circle:nth-child(2) { width: 80px; height: 80px; top: 70%; left: 15%; animation-delay: 2s; }
+        .circle:nth-child(3) { width: 150px; height: 150px; top: 50%; left: 80%; animation-delay: 4s; }
+        .circle:nth-child(4) { width: 60px; height: 60px; top: 20%; left: 70%; animation-delay: 1s; }
+
+        /* Animação dos círculos - flutuar verticalmente */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); } /* Posição inicial/final */
+            50% { transform: translateY(-20px); } /* Sobe 20px no meio da animação */
+        }
+
+        /* ================================================
+           CAIXA CENTRAL - container do conteúdo
+        ================================================ */
+        .container {
+            position: relative; /* Para ficar acima dos círculos flutuantes */
+            z-index: 10; /* Mantém acima dos círculos */
+            background: rgba(255, 255, 255, 0.95); /* Fundo branco quase transparente */
+            border-radius: 25px; /* Bordas arredondadas */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Sombra elegante */
+            padding: 40px 30px; /* Espaçamento interno */
+            text-align: center; /* Centraliza textos */
+            width: 90%; /* Largura responsiva */
+            max-width: 400px; /* Limite máximo de largura */
+        }
+
+        /* ================================================
+           TÍTULOS H1 - nome da aplicação
+        ================================================ */
+        h1 {
+            color: #c21f6b; /* Cor rosa forte */
+            text-shadow: 1px 1px #ffcce6; /* Sombra rosa clara */
+            margin-bottom: 20px; /* Espaço abaixo do título */
+        }
+
+        /* ================================================
+           TÍTULOS H3 - subtítulos
+        ================================================ */
+        h3 {
+            color: #cc6699; /* Cor rosa média */
+            margin-bottom: 15px; /* Espaço abaixo do subtítulo */
+        }
+
+        /* ================================================
+           INPUTS - campo de número decimal
+        ================================================ */
+        input[type="text"] {
+            width: 80%; /* Largura do input */
+            padding: 12px; /* Espaçamento interno */
+            border-radius: 12px; /* Bordas arredondadas */
+            border: 2px solid #ffb3d9; /* Borda rosa */
+            margin-bottom: 20px; /* Espaço abaixo do input */
+            font-size: 16px; /* Tamanho da fonte */
+            text-align: center; /* Texto centralizado */
+            transition: 0.3s; /* Transição suave */
+        }
+
+        /* Efeito ao focar no input */
+        input[type="text"]:focus {
+            border-color: #ff99c8; /* Muda a cor da borda */
+            box-shadow: 0 0 10px #ffb3d9; /* Sombra rosa ao redor */
+            outline: none; /* Remove outline padrão */
+        }
+
+        /* ================================================
+           BOTÃO - Converter
+        ================================================ */
+        button {
+            background: #ffb3d9; /* Cor rosa */
+            color: white; /* Texto branco */
+            border: none; /* Sem borda */
+            padding: 12px 30px; /* Espaçamento interno */
+            border-radius: 20px; /* Bordas arredondadas */
+            font-size: 16px; /* Tamanho da fonte */
+            cursor: pointer; /* Cursor pointer */
+            transition: 0.3s; /* Transição suave */
+            box-shadow: 0 5px 15px rgba(255, 179, 217, 0.5); /* Sombra leve */
+        }
+
+        /* Efeito hover do botão */
+        button:hover {
+            background: #ff99c8; /* Muda cor rosa */
+            transform: scale(1.05); /* Aumenta levemente */
+            box-shadow: 0 8px 25px rgba(255, 153, 200, 0.6); /* Sombra mais intensa */
+        }
+
+        /* ================================================
+           PARÁGRAFOS - "Octal, Hexadecimal, Binário"
+        ================================================ */
+        p {
+            font-weight: bold;
+            margin: 15px 0 5px;
+        }
+
+        /* ================================================
+           RESULTADOS - divs que exibem os números convertidos
+        ================================================ */
+        #demo2, #demo3, #demo4 {
+            background: #ffe6f2; /* Fundo rosa claro */
+            border-radius: 15px; /* Bordas arredondadas */
+            padding: 12px; /* Espaçamento interno */
+            margin-top: 5px; /* Espaço acima */
+            font-family: 'Courier New', monospace; /* Fonte monoespaçada */
+            font-size: 16px; /* Tamanho da fonte */
+            color: #cc6699; /* Cor do texto */
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra interna leve */
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- ================================================
+         ELEMENTOS GRÁFICOS FLUTUANTES (círculos decorativos)
+    ================================================ -->
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <!-- ================================================
+         CONTAINER PRINCIPAL - conteúdo da aplicação
+    ================================================ -->
+    <div class="container">
+        <h1>Duda's Machine</h1>
+
+        <h3>Digite um número decimal:</h3>
+        <input id="demo1" type="text" placeholder="Ex: 42">
+        <br>
+
+        <button onclick="converter()">Converter</button>
+
+        <h3>Resultados:</h3>
+        <p>Octal:</p>
+        <div id="demo2"></div>
+
+        <p>Hexadecimal:</p>
+        <div id="demo3"></div>
+
+        <p>Binário:</p>
+        <div id="demo4"></div>
+    </div>
+
+    <!-- ================================================
+         SCRIPT JAVASCRIPT - função de conversão decimal
+    ================================================ -->
+    <script>
+        function converter() {
+            var decimal = Number(demo1.value); // Pega valor do input e converte para número
+            if (isNaN(decimal)) { // Verifica se é um número válido
+                alert("Por favor, digite um número válido!");
+                return;
+            }
+            demo2.innerHTML = decimal.toString(8); // Converte para octal
+            demo3.innerHTML = decimal.toString(16).toUpperCase(); // Converte para hexadecimal (maiúsculo)
+            demo4.innerHTML = decimal.toString(2); // Converte para binário
+        }
+    </script>
+</body>
+
+</html>
